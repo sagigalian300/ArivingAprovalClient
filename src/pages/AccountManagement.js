@@ -8,11 +8,10 @@ const AccountManagement = () => {
   const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
-    if (access){
-        ManageDatabaseRequests.getAccountInExistence().then((result) => {
-          console.log(result);
-            setAccounts(result);
-        });
+    if (access) {
+      ManageDatabaseRequests.getAccountInExistence().then((result) => {
+        setAccounts(result);
+      });
     }
   }, [access]);
 
@@ -20,15 +19,21 @@ const AccountManagement = () => {
     // console.log(_id);
     ManageDatabaseRequests.removeAllAccountData(_id).then((result) => {
       console.log(result);
-    })
-    setAccounts(accounts.filter(item => item._id !== _id))
+    });
+    setAccounts(accounts.filter((item) => item._id !== _id));
   };
 
   return (
-    <div>
-      <h1>Account management</h1>
-      <input type="password" ref={passRef} placeholder="password" />
+    <div className="flex flex-col items-center justify-center">
+      <h1 className="font-black text-lg">Account management</h1>
+      <input
+        type="password"
+        ref={passRef}
+        placeholder="password"
+        className="w-[60%] md:w-[50%] p-3 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all mt-2"
+      />
       <button
+        className="bg-[#f3603c] m-5 p-2 rounded-xl text-white text-xl lg:hover:shadow-lg lg:hover:shadow-[#c4acac] lg:hover:rotate-12 lg:hover:scale-110 transition-all"
         onClick={() => {
           if (
             process.env.REACT_APP_CREATE_ACCOUNT_MANAGER_CODE ==

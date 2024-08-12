@@ -17,8 +17,8 @@ const Invitation = () => {
   const [inviteId, setInviteId] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
+  const [decoIndex, setDecoIndex] = useState("");
 
-  // commented just to work on the design
   useEffect(() => {
     ManageDatabaseRequests.GetInviteInfo(key).then((result) => {
       console.log(result.data);
@@ -30,6 +30,7 @@ const Invitation = () => {
       setType(result.data.type);
       setLatitude(result.data.latitude);
       setLongitude(result.data.longitude);
+      setDecoIndex(result.data.decoIndex);
     });
   }, [key]);
 
@@ -43,6 +44,7 @@ const Invitation = () => {
         location={location}
         otherDetails={otherDetails}
         type={type}
+        decoIndex={decoIndex}
       />
       <Register inviteId={inviteId} />
       {/* {latitude != '0' && longitude != '0' && <Waze lat={latitude} lon={longitude} />} */}

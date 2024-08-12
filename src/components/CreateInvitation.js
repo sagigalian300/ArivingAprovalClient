@@ -9,6 +9,7 @@ import { CgBoy, CgGirl } from "react-icons/cg";
 import Loader from "./Loader";
 import copy from "clipboard-copy";
 import { motion } from "framer-motion";
+import ChooseDecoration from "./ChooseDecoration";
 
 const images = {
   1: barmitvaImg,
@@ -27,6 +28,7 @@ const CreateInvitation = () => {
   const [eventType, setEventType] = useState(1);
   const [inviteInfo, setInviteInfo] = useState({});
   const [copyAnimation, setCopyAnimation] = useState(false);
+  const [decoIndex, setDecoIndex] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -34,6 +36,7 @@ const CreateInvitation = () => {
       setInviteInfo(result.data);
       setLoading(false);
       setEventType(result.data.type);
+      setDecoIndex(result.data.decoIndex);
     });
   }, []);
 
@@ -103,7 +106,7 @@ const CreateInvitation = () => {
             className="text-center p-2 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all m-2"
             dir="rtl"
           />
-          <input
+          {/* <input
             type="number"
             value={inviteInfo.latitude}
             placeholder="מיקום (קו רוחב)"
@@ -122,7 +125,7 @@ const CreateInvitation = () => {
               setInviteInfo({ ...inviteInfo, longitude: e.target.value });
             }}
             dir="rtl"
-          />
+          /> */}
           <textarea
             id="textarea"
             // ref={otherDetailsRef}
@@ -134,6 +137,7 @@ const CreateInvitation = () => {
             placeholder="פרטים נוספים"
             className="text-center p-2 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all m-2 resize-none"
           />
+          <ChooseDecoration setDecoIndexInFather={setDecoIndex} decoIndexInitial={decoIndex} />
           <button
             className="bg-[#f3603c] w-[60%] p-2 rounded-full text-white text-xl lg:hover:shadow-lg lg:hover:shadow-[#c4acac] lg:hover:scale-105 transition-all"
             onClick={() => {
@@ -145,7 +149,8 @@ const CreateInvitation = () => {
                 eventType,
                 user._id,
                 inviteInfo.latitude,
-                inviteInfo.longitude
+                inviteInfo.longitude,
+                decoIndex
               )
                 .then((result) => {
                   console.log(result);
@@ -187,7 +192,7 @@ const CreateInvitation = () => {
                     className="text-black text-2xl font-black font-mono"
                     initial={{ opacity: 0, x: "100%" }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 3, bounce: 0.5, type: 'spring' }}
+                    transition={{ duration: 3, bounce: 0.5, type: "spring" }}
                   >
                     קישור הועתק
                   </motion.h1>

@@ -21,7 +21,8 @@ class ManageDatabaseRequests {
     type,
     userId,
     latitude,
-    longitude
+    longitude, 
+    decoIndex
   ) {
     // dont forget to return the id of the invitation that will be in the endpoint as a parameter
 
@@ -38,6 +39,7 @@ class ManageDatabaseRequests {
           userId,
           latitude,
           longitude,
+          decoIndex
         },
       }
     );
