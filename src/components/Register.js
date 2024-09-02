@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { UserContext } from "../App";
 import ManageDatabaseRequests from "../db/actions";
 import Loader from "./Loader";
+import axios from "axios";
+
 //https://kerenbackend.onrender.com // this one is for keren backend
 //http://localhost:3001
 const Register = ({ inviteId }) => {
@@ -76,7 +78,6 @@ const Register = ({ inviteId }) => {
           <h1 className="font-bold text-5xl" id="font1">
             אישור הגעה
           </h1>
-          <h1 className="font-medium text-3xl">נשמח לראותכם</h1>
           <div
             className="flex flex-col justify-center items-start p-5 mt-[20px] text-2xl"
             style={{ direction: "rtl" }}

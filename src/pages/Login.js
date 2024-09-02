@@ -1,10 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ManageDatabaseRequests from "../db/actions";
 import { useNavigate } from "react-router-dom";
 import animationData from "../assets/woman typing.json";
 import Lottie from "lottie-react";
 import Loader from "../components/Loader";
-
 
 const Login = (props) => {
   const nameRef = useRef();
@@ -56,6 +55,7 @@ const Login = (props) => {
           התחבר
         </button>
         {loading && <Loader />}
+        
       </div>
     </div>
   );
