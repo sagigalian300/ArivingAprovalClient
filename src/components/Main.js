@@ -77,7 +77,7 @@ const Main = ({ name, date, location, otherDetails, type, decoIndex }) => {
       >
         {type !== "4" && (
           <h1 className="font-medium text-3xl mb-2 mt-2">
-            שמחים להזמין אתכם להשתתף בשמחה שלנו
+            שמחים להזמין אתכם להשתתף בשמחתינו
           </h1>
         )}
         {type == "4" && (
@@ -99,14 +99,20 @@ const Main = ({ name, date, location, otherDetails, type, decoIndex }) => {
             {item}
           </h1>
         ))}
-        
+
         <h1 className="font-medium text-xl mt-3 mb-3" dir="rtl">
           נשמח לראותכם
         </h1>
+
+        {name == "אופיר" && (
+          <h1 className="font-medium text-xl mt-3 mb-3" dir="rtl">
+            משפחת ילוז
+          </h1>
+        )}
+
         <h1 className="font-medium text-2xl mt-3 mb-3" dir="rtl">
           אנא אשרו הגעה
         </h1>
-        
       </motion.div>
       <Lottie
         className="w-[60%] md:w-[30%] lg:w-[20%] mb-[20px]"

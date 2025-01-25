@@ -166,7 +166,7 @@ const CreateInvitation = () => {
           <div className=" whitespace-nowrap mt-5 flex flex-col justify-center items-center">
             <a
               className="font-medium text-lg text-blue-600"
-              href={`${url}invitation/${user.inviteId}`}
+              href={`invitation/${user.inviteId}`}
               target="_blank"
             >
               לחץ כאן כדי לראות את ההזמנה
