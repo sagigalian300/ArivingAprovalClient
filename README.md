@@ -1,12 +1,12 @@
-#Guest Confirmation Frontend
+# Guest Confirmation Frontend
 
-##Purpose:
+## Purpose:
 This application helps event organizers (weddings, bar/bat mitzvahs, and more) manage their guest list. Users can:
 - Create a new event invitation.
 - Share the invitation link with guests.
 - Track RSVP responses on the confirmations page.
 
-##Technologies:
+## Technologies:
 - React JS
 - HTML, JavaScript, CSS
 - tailwindcss
