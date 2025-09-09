@@ -1,0 +1,11 @@
+#textarea::-webkit-scrollbar, #scoller::-webkit-scrollbar {
+    width: 0.4em; /* Adjust as needed */
+  }
+  
+  #textarea::-webkit-scrollbar-track, #scoller::-webkit-scrollbar-track {
+    display: none;
+  }
+  
+  #textarea::-webkit-scrollbar-thumb, #scoller::-webkit-scrollbar-thumb {
+    background-color: transparent; /* You can set the color to match your background */
+  }
