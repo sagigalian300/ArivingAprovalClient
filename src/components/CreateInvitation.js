@@ -44,6 +44,10 @@ const CreateInvitation = () => {
       setLoading(false);
       setEventType(result.data.type);
       setDecoIndex(result.data.decoIndex);
+
+      if (result.data.latitude != null && result.data.longitude != null) {
+        setUsingWaze(true);
+      }
     });
   }, []);
 
@@ -136,27 +140,6 @@ const CreateInvitation = () => {
             className="text-center p-2 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all m-2"
             dir="rtl"
           />
-
-          {/* <input
-            type="number"
-            value={inviteInfo.latitude}
-            placeholder="מיקום (קו רוחב)"
-            className="text-center p-2 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all m-2"
-            onChange={(e) => {
-              setInviteInfo({ ...inviteInfo, latitude: e.target.value });
-            }}
-            dir="rtl"
-          />
-          <input
-            type="number"
-            value={inviteInfo.longitude}
-            placeholder="מיקום (קו אורך)"
-            className="text-center p-2 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all m-2"
-            onChange={(e) => {
-              setInviteInfo({ ...inviteInfo, longitude: e.target.value });
-            }}
-            dir="rtl"
-          /> */}
           <textarea
             id="textarea"
             // ref={otherDetailsRef}
@@ -183,12 +166,12 @@ const CreateInvitation = () => {
                   setUsingWaze(true);
                 }
               }}
-              className="text-2xl font-medium"
+              className="text-xl font-medium"
             >
               {usingWaze ? btnTextForWaze[1] : btnTextForWaze[0]}
             </button>
 
-            <h1 className="text-2xl font-medium mb-2 mt-2">WAZEמיקום ל</h1>
+            <h1 className="text-xl font-medium mb-2 mt-2">WAZEמיקום ל</h1>
           </div>
 
           {usingWaze && (

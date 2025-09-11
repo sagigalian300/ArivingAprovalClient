@@ -164,14 +164,6 @@ const Register = ({ inviteId }) => {
           <button
             onClick={() => {
               addGuest();
-              axios
-                .get("https://hooks.zapier.com/hooks/catch/19778207/24wfe0g/")
-                .then((result) => {
-                  console.log(result);
-                })
-                .catch((err) => {
-                  console.error(err);
-                });
             }}
             className="bg-[#7ba7b3] font-bold text-white w-[200px] p-2 mb-[100px] hover:scale-125 transition-all"
           >
