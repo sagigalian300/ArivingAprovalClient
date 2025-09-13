@@ -82,45 +82,43 @@ const Guests = () => {
           <h1 className="font-medium">מספר אישורים כולל: {numberOfGuests}</h1>
         </div>
       </div>
-      <div className="flex flex-row items-center gap-3 m-2">
-        <input
-          ref={searchRef}
-          dir="rtl"
-          className="p-1 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all duration-300 focus:scale-x-110"
-          placeholder="חפש אורח"
-          onChange={(e) => {
-            setFilteredGuests(
-              guests.filter((i) => startWithStr(i.guestName, e.target.value))
+      <input
+        ref={searchRef}
+        dir="rtl"
+        className="p-1 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all duration-300 focus:scale-x-110"
+        placeholder="חפש אורח"
+        onChange={(e) => {
+          setFilteredGuests(
+            guests.filter((i) => startWithStr(i.guestName, e.target.value))
+          );
+        }}
+      />
+      {guests.length > 0 && (
+        <button
+          onClick={() => {
+            const confirmed = window.confirm(
+              "האם ברצונך לשלוח תזכורות לכל האורחים? מומלץ לשלוח כשבוע לפני האירוע כדי לשמור על רלוונטיות ולהימנע מהצקה מיותרת."
             );
-          }}
-        />
-        {guests.length > 0 && (
-          <button
-            onClick={() => {
-              const confirmed = window.confirm(
-                "האם ברצונך לשלוח תזכורות לכל האורחים? מומלץ לשלוח כשבוע לפני האירוע כדי לשמור על רלוונטיות ולהימנע מהצקה מיותרת."
-              );
 
-              if (confirmed) {
-                Axios.post(url + "guests/sendRemindersToAllGuests", null, {
-                  params: {
-                    userId: user._id,
-                    inviteId: user.inviteId
-                  },
-                }).then((res) => {
-                  console.log(res);
-                });
-                console.log("תזכורות נשלחו לכל האורחים");
-              } else {
-                console.log("שליחת התזכורות בוטלה");
-              }
-            }}
-            className="px-4 py-2 rounded-xl bg-orange-500 text-white text-sm font-medium shadow hover:bg-orange-600 transition"
-          >
-            שלח תזכורת
-          </button>
-        )}
-      </div>
+            if (confirmed) {
+              Axios.post(url + "guests/sendRemindersToAllGuests", null, {
+                params: {
+                  userId: user._id,
+                  inviteId: user.inviteId,
+                },
+              }).then((res) => {
+                console.log(res);
+              });
+              console.log("תזכורות נשלחו לכל האורחים");
+            } else {
+              console.log("שליחת התזכורות בוטלה");
+            }
+          }}
+          className="p-1 outline-none border-[1px] bg-gray-200 rounded-full pr-4 pl-4 mt-1"
+        >
+          שלח תזכורת
+        </button>
+      )}
 
       {filteredGuests.map((item) => (
         <GuestCard

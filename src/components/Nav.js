@@ -5,6 +5,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { RiMenuLine } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
+import Lottie from "lottie-react";
+import animationData from "../assets/createAccount.json";
+
 const links = ["התנתק", "צור חשבון", "צור קשר", "מידע"];
 
 const Nav = (props) => {
@@ -20,7 +23,11 @@ const Nav = (props) => {
     <div>
       {!location.pathname.includes("invitation") && (
         <div className="flex justify-between items-center p-[40px] font-sans">
-          <h1 className="flex flex-1 text-3xl font-black">LOGO</h1>
+          <h1 className="flex flex-1 text-3xl font-black">
+            <img width={50} src="/logo512.png" alt="LOGO" />
+          </h1>
+          {/* <h1 className="text-2xl font-bold">LOGO</h1> */}
+          
 
           <div className="hidden md:flex">
             {links.map((link, index) => (

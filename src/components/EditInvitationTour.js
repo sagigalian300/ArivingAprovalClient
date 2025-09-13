@@ -30,12 +30,12 @@ const EditInvitationTour = ({ run, setRun, userId }) => {
         "הוסף בתיבה זו פרטים נוספים שתרצה להוסיף, כל פעם שתכתוב * הטקסט בהזמנה ירד שורה",
       placement: "right",
     },
-    {
-      target: "#waze-mode", // CSS selector of the element to highlight
-      content:
-        "הפעל אם אתה רוצה לאפשר ניווט למיקום האירוע, לא חובה אבל מומלץ, במידה ותפעיל, תוכל לבחור את המיקום המדוייק",
-      placement: "right",
-    },
+    // {
+    //   target: "#waze-mode", // CSS selector of the element to highlight
+    //   content:
+    //     "הפעל אם אתה רוצה לאפשר ניווט למיקום האירוע, לא חובה אבל מומלץ, במידה ותפעיל, תוכל לבחור את המיקום המדוייק",
+    //   placement: "right",
+    // },
     {
       target: "#deco", // CSS selector of the element to highlight
       content:
@@ -69,20 +69,19 @@ const EditInvitationTour = ({ run, setRun, userId }) => {
     <Joyride
       steps={steps}
       run={run}
-      continuous={true} // automatically go to next step
+      continuous={true}
       showSkipButton={true}
-      showProgress={true}
+      showProgress={false}
+      disableOverlayClose={true}
+      disableOverlay={true}
+      spotlightClicks={true}
       callback={handleJoyrideCallback}
-      styles={{
-        options: {
-          zIndex: 10000,
-        },
-      }}
+      styles={{ options: { zIndex: 10000 } }}
       locale={{
         back: "חזור",
         close: "סגור",
         last: "סיום",
-        next: "הבא",
+        next: "הבא", // ✅ Hebrew with progress
         skip: "דלג",
       }}
     />
