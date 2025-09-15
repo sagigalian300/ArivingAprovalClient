@@ -44,8 +44,10 @@ const Invitation = () => {
         otherDetails={otherDetails}
         type={type}
         decoIndex={decoIndex}
-        />
-        {latitude != null && longitude != null && <Waze lat={latitude} lon={longitude} />}
+      />
+      {latitude != null && longitude != null && (
+        <Waze lat={latitude} lon={longitude} />
+      )}
       <Register inviteId={inviteId} />
     </div>
   );

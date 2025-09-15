@@ -1,8 +1,7 @@
-import React, { useRef, useState } from "react";
-import { UserContext } from "../App";
+import { useRef, useState } from "react";
 import ManageDatabaseRequests from "../db/actions";
 import Loader from "./Loader";
-import axios from "axios";
+import AddToCalendarButton from "../components/AddToCalendarButton";
 
 //https://kerenbackend.onrender.com // this one is for keren backend
 //http://localhost:3001
@@ -92,8 +91,9 @@ const Register = ({ inviteId }) => {
   return (
     <div>
       {done ? (
-        <div className="w-full flex items-center justify-center mb-[50px] text-4xl font-medium text-center">
-          תגובתך נרשמה בהצלחה
+        <div className="w-full flex flex-col items-center justify-center mb-[50px] text-4xl font-medium text-center">
+          <h1 className="mb-2"> תגובתך נרשמה בהצלחה</h1>
+          <AddToCalendarButton />
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center text-center">
