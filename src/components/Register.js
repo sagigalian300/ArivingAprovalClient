@@ -5,7 +5,7 @@ import AddToCalendarButton from "../components/AddToCalendarButton";
 
 //https://kerenbackend.onrender.com // this one is for keren backend
 //http://localhost:3001
-const Register = ({ inviteId }) => {
+const Register = ({ inviteId, name, date, location }) => {
   const [count, setCount] = useState(1);
   const fNameRef = useRef();
   const lNameRef = useRef();
@@ -93,7 +93,7 @@ const Register = ({ inviteId }) => {
       {done ? (
         <div className="w-full flex flex-col items-center justify-center mb-[50px] text-4xl font-medium text-center">
           <h1 className="mb-2"> תגובתך נרשמה בהצלחה</h1>
-          <AddToCalendarButton />
+          <AddToCalendarButton name={name} date={date} location={location} />
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center text-center">

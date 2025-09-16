@@ -24,6 +24,7 @@ const Invitation = () => {
       setInviteId(result.data.inviteId);
       setName(result.data.name);
       setDate(result.data.date);
+      console.log(result.data.date);
       setLocation(result.data.location);
       setOtherDetails(result.data.otherDetails);
       setType(result.data.type);
@@ -48,7 +49,7 @@ const Invitation = () => {
       {latitude != null && longitude != null && (
         <Waze lat={latitude} lon={longitude} />
       )}
-      <Register inviteId={inviteId} />
+      <Register name={name} date={date} location={location} inviteId={inviteId} />
     </div>
   );
 };

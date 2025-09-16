@@ -19,7 +19,7 @@ const images = {
   3: wedding,
 };
 
-const btnTextForWaze = ["הפעל", "כבה"];
+const btnTextForWaze = ["עדכן", "כבה"];
 
 const options = [
   { icon: "boy", title: "בר מצווה" },
@@ -152,26 +152,27 @@ const CreateInvitation = () => {
             className="text-center p-2 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all m-2 resize-none"
           />
           <div className="flex items-center gap-3">
+            <h1 className="text-xl font-medium mb-2 mt-2">WAZEמיקום ל</h1>
             <button
               id="waze-mode"
               onClick={() => {
                 if (usingWaze) {
-                  setInviteInfo({
-                    ...inviteInfo,
-                    latitude: null,
-                    longitude: null,
-                  });
-                  setUsingWaze(false);
+                  if (window.confirm("אתה בטוח שתרצה לכבות את הקישוריות לוויז? תוכל לעדכן מחדש את המיקום לאחר ההסרה.")) {
+                    setInviteInfo({
+                      ...inviteInfo,
+                      latitude: null,
+                      longitude: null,
+                    });
+                    setUsingWaze(false);
+                  }
                 } else {
                   setUsingWaze(true);
                 }
               }}
-              className="text-xl font-medium"
+              className="text-xl font-medium text-blue-500"
             >
               {usingWaze ? btnTextForWaze[1] : btnTextForWaze[0]}
             </button>
-
-            <h1 className="text-xl font-medium mb-2 mt-2">WAZEמיקום ל</h1>
           </div>
 
           {usingWaze && (
