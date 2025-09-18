@@ -8,7 +8,7 @@ import { IoClose } from "react-icons/io5";
 import Lottie from "lottie-react";
 import animationData from "../assets/createAccount.json";
 
-const links = ["התנתק", "צור חשבון", "צור קשר", "מידע"];
+const links = ["התנתק", "צור חשבון", "צור קשר"/*, "מידע"*/];
 
 const Nav = (props) => {
   const location = useLocation();

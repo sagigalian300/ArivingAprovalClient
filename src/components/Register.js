@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import ManageDatabaseRequests from "../db/actions";
 import Loader from "./Loader";
 import AddToCalendarButton from "../components/AddToCalendarButton";
+import IhaveAnEventAlso from "./IhaveAnEventAlso";
 
 //https://kerenbackend.onrender.com // this one is for keren backend
 //http://localhost:3001
@@ -12,6 +13,7 @@ const Register = ({ inviteId, name, date, location }) => {
   const emailRef = useRef();
   const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [hasGmail, setHasGmail] = useState(true);
 
   // const isValidPhoneNumber = (phoneNumber) => {
   //   if (phoneNumber.length != 10)
@@ -55,32 +57,45 @@ const Register = ({ inviteId, name, date, location }) => {
       fNameRef.current.value.length > 0 &&
       lNameRef.current.value.length > 0
     ) {
-      const result = isValidEmail(emailRef.current.value);
-      if (result.isValid) {
-        ManageDatabaseRequests.IsEmailAlreadyUsed(
-          emailRef.current.value,
-          inviteId
-        ).then((result) => {
-          console.log("is the email aleady in use ? " + result);
-          if (result == false) {
-            ManageDatabaseRequests.AddGuest(
-              { inviteId },
-              fNameRef.current.value + " " + lNameRef.current.value,
-              emailRef.current.value,
-              count
-            ).then((result) => {
-              console.log(result);
-              setDone(true);
+      if (hasGmail) {
+        const result = isValidEmail(emailRef.current.value);
+        if (result.isValid) {
+          ManageDatabaseRequests.IsEmailAlreadyUsed(
+            emailRef.current.value,
+            inviteId
+          ).then((result) => {
+            console.log("is the email aleady in use ? " + result);
+            if (result == false) {
+              ManageDatabaseRequests.AddGuest(
+                { inviteId },
+                fNameRef.current.value + " " + lNameRef.current.value,
+                emailRef.current.value,
+                count
+              ).then((result) => {
+                console.log(result);
+                setDone(true);
+                setLoading(false);
+              });
+            } else {
+              alert("מייל זה מופיע אצלנו במאגר, לא ניתן לאשר הגעה פעמיים");
               setLoading(false);
-            });
-          } else {
-            alert("מייל זה מופיע אצלנו במאגר, לא ניתן לאשר הגעה פעמיים");
-            setLoading(false);
-          }
-        });
+            }
+          });
+        } else {
+          alert(result.reason);
+          setLoading(false);
+        }
       } else {
-        alert(result.reason);
-        setLoading(false);
+        ManageDatabaseRequests.AddGuest(
+          { inviteId },
+          fNameRef.current.value + " " + lNameRef.current.value,
+          "None",
+          count
+        ).then((result) => {
+          console.log(result);
+          setDone(true);
+          setLoading(false);
+        });
       }
     } else {
       alert("שם פרטי ושם משפחה חייבים להכתב");
@@ -94,6 +109,7 @@ const Register = ({ inviteId, name, date, location }) => {
         <div className="w-full flex flex-col items-center justify-center mb-[50px] text-4xl font-medium text-center">
           <h1 className="mb-2"> תגובתך נרשמה בהצלחה</h1>
           <AddToCalendarButton name={name} date={date} location={location} />
+          <IhaveAnEventAlso />
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center text-center">
@@ -116,12 +132,31 @@ const Register = ({ inviteId, name, date, location }) => {
                 placeholder="שם משפחה"
               />
             </div>
-            <div className="w-full flex justify-center items-center">
-              <input
-                ref={emailRef}
-                className=" bg-transparent border-[#7ba7b3] text-[#7ba7b3] font-bold outline-none border-b-[4px] w-[45%] focus:border-black transition-colors duration-700 p-2"
-                placeholder="Gmail"
-              />
+            <div className="w-full flex flex-col justify-center items-center">
+              {hasGmail && (
+                <input
+                  ref={emailRef}
+                  className="bg-transparent mb-2 border-[#7ba7b3] text-[#7ba7b3] font-bold outline-none border-b-[4px] w-full text-center focus:border-black transition-colors duration-700 p-2"
+                  placeholder="Gmail"
+                />
+              )}
+              <button
+                onClick={() => {
+                  if (hasGmail) {
+                    if (
+                      window.confirm(
+                        "ללא הכנסת כתובת Gmail לא תישלח לך תזכורת לאירוע. האם אתה בטוח שאין ברשותך כתובת Gmail?"
+                      )
+                    ) {
+                      setHasGmail(false);
+                    }
+                  } else {
+                    setHasGmail(true);
+                  }
+                }}
+              >
+                {hasGmail ? "אין לי Gmail" : "יש לי Gmail"}
+              </button>
             </div>
           </div>
           <div className="flex flex-row text-2xl font-bold mt-[40px] mb-[20px]">
