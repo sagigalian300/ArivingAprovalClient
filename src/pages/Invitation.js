@@ -49,7 +49,12 @@ const Invitation = () => {
       {latitude != null && longitude != null && (
         <Waze lat={latitude} lon={longitude} />
       )}
-      <Register name={name} date={date} location={location} inviteId={inviteId} />
+      <Register
+        name={name}
+        date={date}
+        location={location}
+        inviteId={inviteId}
+      />
     </div>
   );
 };

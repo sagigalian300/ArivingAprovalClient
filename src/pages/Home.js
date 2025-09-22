@@ -38,7 +38,7 @@ const Home = () => {
             }}
             className="text-2xl font-medium"
           >
-            {creating ? "בטל" : "ערוך הזמנה"}
+            {creating ? "חזור" : "ערוך הזמנה"}
           </button>
         </div>
         {creating && <CreateInvitation />}

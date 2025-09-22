@@ -6,6 +6,7 @@ import { UserContext } from "../App";
 import Loader from "../components/Loader";
 import { url } from "../db/urlConnector.js";
 import Axios from "axios";
+import { motion } from "framer-motion";
 
 function startWithStr(string, substring) {
   if (substring.length > string.length) return false;
@@ -67,7 +68,7 @@ const Guests = () => {
   }, [guests]);
 
   return (
-    <div className="flex flex-col items-center min-h-[50vh]">
+    <div className="flex flex-col items-center min-h-[50vh] overflow-x-hidden">
       <div className="flex items-center justify-center">
         <button
           className="m-2"
@@ -120,16 +121,29 @@ const Guests = () => {
         </button>
       )}
 
-      {filteredGuests.map((item) => (
-        <GuestCard
-          key={item.guestId}
-          name={item.guestName}
-          email={item.guestEmail}
-          count={item.guestCount}
-          guestId={item.guestId}
-          delMe={deleteGuest}
-          date={item.approvalDate}
-        />
+      {filteredGuests.map((item, index) => (
+        <motion.div
+          key={index}
+          initial={{ y: 40, opacity: 0, scale: 0.95 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          transition={{
+            type: "spring",
+            stiffness: 120,
+            damping: 15,
+            delay: index * 0.15,
+          }}
+          className="w-full flex items-center justify-center"
+        >
+          <GuestCard
+            key={item.guestId}
+            name={item.guestName}
+            email={item.guestEmail}
+            count={item.guestCount}
+            guestId={item.guestId}
+            delMe={deleteGuest}
+            date={item.approvalDate}
+          />
+        </motion.div>
       ))}
       {loading && <Loader />}
       {guests.length === 0 && (

@@ -9,6 +9,7 @@ import birthday3Animation from "../assets/birthday3Animation.json";
 import birthday4Animation from "../assets/birthday4Animation.json";
 import marriage1Animation from "../assets/marriage1Animation.json";
 import marriage2Animation from "../assets/marriage2Animation.json";
+import { motion, AnimatePresence } from "framer-motion";
 
 const decorations = [
   heartAnimation,
@@ -22,46 +23,62 @@ const decorations = [
   marriage2Animation,
 ];
 
-const ChooseDecoration = ({setDecoIndexInFather, decoIndexInitial}) => {
-  const [decoIndex, setDecoIndex] = useState(decoIndexInitial);
+const ChooseDecoration = ({ setDecoIndexInFather, decoIndexInitial }) => {
+  const [decoIndex, setDecoIndex] = useState(decoIndexInitial || 0);
+  const [dir, setDir] = useState(1); // 1 = moved forward (next), -1 = moved back (prev)
 
   useEffect(() => {
-    setDecoIndexInFather(decoIndex);
-  }, [decoIndex]);
-  
+    // keep parent in sync
+    setDecoIndexInFather?.(decoIndex);
+  }, [decoIndex, setDecoIndexInFather]);
+
   const switchDecoration = (num) => {
-    // num is either 1 or -1
-    console.log(num + decoIndex, "num");
-    if (decoIndex + num < 0) {
-      setDecoIndex(decorations.length - 1);
-    } else if (decoIndex + num >= decorations.length) {
-      setDecoIndex(0);
-    } else {
-      setDecoIndex((curr) => curr + num);
-    }
+    setDir(num);
+    setDecoIndex((prev) => {
+      const next = prev + num;
+      if (next < 0) return decorations.length - 1;
+      if (next >= decorations.length) return 0;
+      return next;
+    });
   };
+
+  const variants = {
+  enter: { opacity: 0, rotate: -90, scale: 0.8 },
+  center: { opacity: 1, rotate: 0, scale: 1 },
+  exit: { opacity: 0, rotate: 90, scale: 0.8 },
+};
+
   return (
-    <div id='deco' className="flex flex-col w-full items-center justify-center ">
+    <div id="deco" className="flex flex-col w-full items-center justify-center">
       <h1>בחר קישוט</h1>
-      <div className="flex flex-row justify-center text-center">
-        <button
-          onClick={() => {
-            switchDecoration(-1);
-          }}
-        >
-          שמאל
-        </button>
-          <Lottie
-            className="w-[60%] md:w-[30%] lg:w-[20%] mb-[20px] m-5"
-            animationData={decorations[decoIndex]}
-          />
-        <button
-          onClick={() => {
-            switchDecoration(1);
-          }}
-        >
-          ימין
-        </button>
+
+      <div className="flex items-center justify-center">
+        <button onClick={() => switchDecoration(-1)}>שמאל</button>
+
+        {/* keep sizing classes here and hide overflow so slide animations don't create scroll */}
+        <div className="w-[60%] md:w-[30%] lg:w-[20%] mb-[20px] m-5 overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={decoIndex}
+              custom={dir}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.42, ease: "easeInOut" }}
+              className="flex justify-center items-center"
+            >
+              {/* keep the Lottie sizing class you had before */}
+              <Lottie
+                className="w-[60%] md:w-[30%] lg:w-[20%]"
+                animationData={decorations[decoIndex]}
+                loop
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <button onClick={() => switchDecoration(1)}>ימין</button>
       </div>
     </div>
   );

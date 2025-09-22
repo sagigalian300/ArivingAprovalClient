@@ -10,8 +10,8 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import "./App.css";
 import Contact from "./pages/Contact";
-// import Info from "./pages/Info";
 import AccountManagement from "./pages/AccountManagement";
+// import Info from "./pages/Info";
 
 export const UserContext = createContext();
 

@@ -24,7 +24,7 @@ const Nav = (props) => {
       {!location.pathname.includes("invitation") && (
         <div className="flex justify-between items-center p-[40px] font-sans">
           <h1 className="flex flex-1 text-3xl font-black">
-            <img width={50} src="/logo512.png" alt="LOGO" />
+            <img width={70} src="/logo512.png" alt="LOGO" />
           </h1>
           {/* <h1 className="text-2xl font-bold">LOGO</h1> */}
           

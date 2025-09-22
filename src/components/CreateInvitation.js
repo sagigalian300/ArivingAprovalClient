@@ -37,6 +37,34 @@ const CreateInvitation = () => {
   const [usingWaze, setUsingWaze] = useState(false);
   const [tourme, setTourme] = useState(false);
 
+  const handleShare = async () => {
+    const invitationLink = `${url}invitation/${user.inviteId}`;
+    const message = `\u202B🎉 יש לנו אירוע 🎉
+
+📅 תאריך: ${inviteInfo.date}
+📍 מיקום: ${inviteInfo.location}
+
+להלן הקישור:
+🔗 https://eventapprovals.firebaseapp.com/invitation/${user.inviteId}
+
+\nנשמח שתאשר/י הגעה💙\u202C`;
+    console.log(message);
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          text: message,
+        });
+        console.log("Invitation shared successfully!");
+      } catch (err) {
+        console.error("Sharing failed:", err);
+      }
+    } else {
+      // fallback for desktop (copy to clipboard or alert)
+      navigator.clipboard.writeText(message);
+      alert("הקישור הועתק, ניתן לשתף ידנית.");
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
     ManageDatabaseRequests.GetInviteInfo(user.inviteId).then((result) => {
@@ -157,7 +185,11 @@ const CreateInvitation = () => {
               id="waze-mode"
               onClick={() => {
                 if (usingWaze) {
-                  if (window.confirm("אתה בטוח שתרצה לכבות את הקישוריות לוויז? תוכל לעדכן מחדש את המיקום לאחר ההסרה.")) {
+                  if (
+                    window.confirm(
+                      "אתה בטוח שתרצה לכבות את הקישוריות לוויז? תוכל לעדכן מחדש את המיקום לאחר ההסרה."
+                    )
+                  ) {
                     setInviteInfo({
                       ...inviteInfo,
                       latitude: null,
@@ -227,6 +259,9 @@ const CreateInvitation = () => {
             </a>
             <div className="flex flex-col justify-center items-center m-2">
               {/* <h1 className="text-blue-600">{`${url}invitation/${user.inviteId}`}</h1> */}
+              <button onClick={handleShare} className="ml-2">
+                שלח הזמנה מובנית
+              </button>
               <button
                 className="ml-2"
                 onClick={() => {
