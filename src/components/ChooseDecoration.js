@@ -25,10 +25,9 @@ const decorations = [
 
 const ChooseDecoration = ({ setDecoIndexInFather, decoIndexInitial }) => {
   const [decoIndex, setDecoIndex] = useState(decoIndexInitial || 0);
-  const [dir, setDir] = useState(1); // 1 = moved forward (next), -1 = moved back (prev)
+  const [dir, setDir] = useState(1); // 1 = next, -1 = prev
 
   useEffect(() => {
-    // keep parent in sync
     setDecoIndexInFather?.(decoIndex);
   }, [decoIndex, setDecoIndexInFather]);
 
@@ -43,42 +42,50 @@ const ChooseDecoration = ({ setDecoIndexInFather, decoIndexInitial }) => {
   };
 
   const variants = {
-  enter: { opacity: 0, rotate: -90, scale: 0.8 },
-  center: { opacity: 1, rotate: 0, scale: 1 },
-  exit: { opacity: 0, rotate: 90, scale: 0.8 },
-};
+    enter: { opacity: 0, rotate: -90, scale: 0.8 },
+    center: { opacity: 1, rotate: 0, scale: 1 },
+    exit: { opacity: 0, rotate: 90, scale: 0.8 },
+  };
 
   return (
     <div id="deco" className="flex flex-col w-full items-center justify-center">
-      <h1>בחר קישוט</h1>
+      <h1 className="mb-3 text-xl font-bold">בחר קישוט</h1>
 
-      <div className="flex items-center justify-center">
-        <button onClick={() => switchDecoration(-1)}>שמאל</button>
-
-        {/* keep sizing classes here and hide overflow so slide animations don't create scroll */}
-        <div className="w-[60%] md:w-[30%] lg:w-[20%] mb-[20px] m-5 overflow-hidden">
+      <div className="flex flex-col items-center justify-center gap-4">
+        <div className="w-[60%] md:w-[30%] lg:w-[20%] overflow-hidden mb-5 flex justify-center items-center">
           <AnimatePresence mode="wait">
             <motion.div
-              key={decoIndex}
+              key={`${decoIndex}-${dir}`} // Include dir to force new animation on each click
               custom={dir}
               variants={variants}
               initial="enter"
               animate="center"
               exit="exit"
               transition={{ duration: 0.42, ease: "easeInOut" }}
-              className="flex justify-center items-center"
+              className="flex justify-center items-center w-full"
             >
-              {/* keep the Lottie sizing class you had before */}
               <Lottie
-                className="w-[60%] md:w-[30%] lg:w-[20%]"
+                className="w-[90%] md:w-[30%] lg:w-[20%]"
                 animationData={decorations[decoIndex]}
                 loop
               />
             </motion.div>
           </AnimatePresence>
         </div>
-
-        <button onClick={() => switchDecoration(1)}>ימין</button>
+        <div className="flex flex-row w-full pr-4 pl-4">
+          <button
+            className="m-1 p-2 flex-1 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+            onClick={() => switchDecoration(-1)}
+          >
+            שמאל
+          </button>
+          <button
+            className="m-1 p-2 flex-1 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+            onClick={() => switchDecoration(1)}
+          >
+            ימין
+          </button>
+        </div>
       </div>
     </div>
   );

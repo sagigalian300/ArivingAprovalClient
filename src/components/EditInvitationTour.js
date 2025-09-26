@@ -7,46 +7,46 @@ const EditInvitationTour = ({ run, setRun, userId }) => {
     {
       target: "#type", // CSS selector of the element to highlight
       content: "כאן בחר את סוג האירוע",
-      placement: "right",
+      placement: "top",
     },
     {
       target: "#name", // CSS selector of the element to highlight
       content: "מלא כאן את שם החוגג",
-      placement: "right",
+      placement: "top",
     },
     {
       target: "#date", // CSS selector of the element to highlight
       content: "מלא כאן את תאריך האירוע",
-      placement: "right",
+      placement: "top",
     },
     {
       target: "#location", // CSS selector of the element to highlight
       content: "כתוב כאן את מיקום האירוע, מיקום זה יופיע בהזמנה שתשלח לאורחים",
-      placement: "right",
+      placement: "top",
     },
     {
       target: "#textarea", // CSS selector of the element to highlight
       content:
-        "הוסף בתיבה זו פרטים נוספים שתרצה להוסיף, כל פעם שתכתוב * הטקסט בהזמנה ירד שורה",
-      placement: "right",
+        "הוסף בתיבה זו פרטים נוספים שתרצה להוסיף, כל פעם שתכתוב '.' (נקודה) הטקסט בהזמנה ירד שורה",
+      placement: "top",
     },
     // {
     //   target: "#waze-mode", // CSS selector of the element to highlight
     //   content:
     //     "הפעל אם אתה רוצה לאפשר ניווט למיקום האירוע, לא חובה אבל מומלץ, במידה ותפעיל, תוכל לבחור את המיקום המדוייק",
-    //   placement: "right",
+    //   placement: "top",
     // },
     {
       target: "#deco", // CSS selector of the element to highlight
       content:
         "בחר את הקישוט שהכי מוצא חן בעינך, קישוט זה יופיע בהזמנה שתשלח לאורחים",
-      placement: "right",
+      placement: "top",
     },
     {
       target: "#create-btn", // CSS selector of the element to highlight
       content:
         "לחץ על כפתור זה כדי לשמור את השינויים שבצעת, ללא לחיצה עליו השינויים לא ישמרו!",
-      placement: "right",
+      placement: "top",
     },
   ];
 
@@ -76,7 +76,11 @@ const EditInvitationTour = ({ run, setRun, userId }) => {
       disableOverlay={true}
       spotlightClicks={true}
       callback={handleJoyrideCallback}
-      styles={{ options: { zIndex: 10000 } }}
+      styles={{
+        options: {
+          zIndex: 10000,
+        },
+      }}
       locale={{
         back: "חזור",
         close: "סגור",

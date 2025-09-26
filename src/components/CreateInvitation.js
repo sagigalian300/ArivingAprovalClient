@@ -89,7 +89,7 @@ const CreateInvitation = () => {
     // notice the width of this is 50% on large screens
     <div className="flex flex-col items-center justify-center">
       <button
-        className="text-2xl font-medium"
+        className="text-2xl font-medium mb-4"
         onClick={() => {
           setTourme(true);
         }}
@@ -179,12 +179,95 @@ const CreateInvitation = () => {
             placeholder="פרטים נוספים"
             className="text-center p-2 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all m-2 resize-none"
           />
-          <div className="flex items-center gap-3">
-            <h1 className="text-xl font-medium mb-2 mt-2">WAZEמיקום ל</h1>
-            <button
-              id="waze-mode"
-              onClick={() => {
-                if (usingWaze) {
+
+          {usingWaze == false ? (
+            <div className="flex items-center gap-3">
+              <button
+                id="waze-mode"
+                onClick={() => setUsingWaze(true)}
+                className="text-xl font-medium text-blue-500"
+              >
+                הפעל מיקום לוויז
+              </button>
+            </div>
+          ) : inviteInfo.placeForWaze === "" ? (
+            <LocationAutocomplete
+              onSelect={(place) => {
+                const lat = place.geometry.location.lat();
+                const lng = place.geometry.location.lng();
+                setInviteInfo({
+                  ...inviteInfo,
+                  latitude: lat,
+                  longitude: lng,
+                  placeForWaze: place.name,
+                });
+              }}
+            />
+          ) : (
+            <div className="flex flex-col text-center">
+              <h1>מיקום לוייז הנבחר: {inviteInfo.placeForWaze}</h1>
+              <div className="flex flex-row justify-between p-4">
+                <button
+                  className="m-1 flex-1 bg-blue-100 text-blue-700 font-semibold py-2 px-4 rounded-lg hover:bg-blue-200 transition-colors"
+                  onClick={() => {
+                    setInviteInfo((curr) => ({ ...curr, placeForWaze: "" }));
+                  }}
+                >
+                  ערוך
+                </button>
+                <button
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "אתה בטוח שתרצה לכבות את הקישוריות לוויז? תוכל לעדכן מחדש את המיקום לאחר ההסרה."
+                      )
+                    ) {
+                      setInviteInfo({
+                        ...inviteInfo,
+                        latitude: null,
+                        longitude: null,
+                        placeForWaze: "",
+                      });
+                      setUsingWaze(false);
+                    }
+                  }}
+                  className="m-1 flex-1 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition-colors"
+                >
+                  מחק
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* 
+          {usingWaze && inviteInfo.placeForWaze == "" && (
+            <LocationAutocomplete
+              onSelect={(place) => {
+                const lat = place.geometry.location.lat();
+                const lng = place.geometry.location.lng();
+
+                setInviteInfo({
+                  ...inviteInfo,
+                  latitude: lat,
+                  longitude: lng,
+                  placeForWaze: place.name,
+                });
+              }}
+            />
+          )}
+
+          {usingWaze && inviteInfo.placeForWaze != "" && (
+            <div>
+              <h1>מיקום לוייז הנבחר: {inviteInfo.placeForWaze}</h1>
+              <button
+                onClick={() => {
+                  setInviteInfo((curr) => ({ ...curr, placeForWaze: "" }));
+                }}
+              >
+                ערוך
+              </button>
+              <button
+                onClick={() => {
                   if (
                     window.confirm(
                       "אתה בטוח שתרצה לכבות את הקישוריות לוויז? תוכל לעדכן מחדש את המיקום לאחר ההסרה."
@@ -194,29 +277,16 @@ const CreateInvitation = () => {
                       ...inviteInfo,
                       latitude: null,
                       longitude: null,
+                      placeForWaze: "",
                     });
                     setUsingWaze(false);
                   }
-                } else {
-                  setUsingWaze(true);
-                }
-              }}
-              className="text-xl font-medium text-blue-500"
-            >
-              {usingWaze ? btnTextForWaze[1] : btnTextForWaze[0]}
-            </button>
-          </div>
-
-          {usingWaze && (
-            <LocationAutocomplete
-              onSelect={(place) => {
-                const lat = place.geometry.location.lat();
-                const lng = place.geometry.location.lng();
-
-                setInviteInfo({ ...inviteInfo, latitude: lat, longitude: lng });
-              }}
-            />
-          )}
+                }}
+              >
+                מחק
+              </button>
+            </div>
+          )} */}
 
           <ChooseDecoration
             setDecoIndexInFather={setDecoIndex}
@@ -236,6 +306,7 @@ const CreateInvitation = () => {
                 user._id,
                 inviteInfo.latitude,
                 inviteInfo.longitude,
+                inviteInfo.placeForWaze,
                 decoIndex
               )
                 .then((result) => {

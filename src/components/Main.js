@@ -29,7 +29,7 @@ const Main = ({ name, date, location, otherDetails, type, decoIndex }) => {
   useEffect(() => {
     var newArr = [""];
     for (let i = 0; i < otherDetails.length; i++) {
-      if (otherDetails[i] === "*") {
+      if (otherDetails[i] === ".") {
         newArr.push("");
       } else {
         newArr[newArr.length - 1] += otherDetails[i];

@@ -21,7 +21,8 @@ class ManageDatabaseRequests {
     type,
     userId,
     latitude,
-    longitude, 
+    longitude,
+    placeForWaze,
     decoIndex
   ) {
     // dont forget to return the id of the invitation that will be in the endpoint as a parameter
@@ -39,7 +40,8 @@ class ManageDatabaseRequests {
           userId,
           latitude,
           longitude,
-          decoIndex
+          placeForWaze,
+          decoIndex,
         },
       }
     );
@@ -102,30 +104,33 @@ class ManageDatabaseRequests {
   }
 
   static async IsEmailAlreadyUsed(email, inviteId) {
-    const response = await Axios.post(
-      url + "guests/isEmailAlreadyUsed",
-      null,
-      {
-        params: {
-          email,
-          inviteId,
-        },
-      }
-    );
+    const response = await Axios.post(url + "guests/isEmailAlreadyUsed", null, {
+      params: {
+        email,
+        inviteId,
+      },
+    });
     return response.data;
   }
-  
-  static async getAccountInExistence(){
-    const response = await Axios.post(url + 'users/getAll', null)
+
+  static async getAccountInExistence() {
+    const response = await Axios.post(url + "users/getAll", null);
     return response.data;
   }
-  static async removeAllAccountData(_id){ // the id of the account
-    const _ = await Axios.post(url +'users/delUser', null, {params: {_id}})
+  static async removeAllAccountData(_id) {
+    // the id of the account
+    const _ = await Axios.post(url + "users/delUser", null, {
+      params: { _id },
+    });
     return _;
   }
 
   static async updateFirstLoginToFalse(userId) {
-    const response = await Axios.post(url + "users/updateFirstLoginToFalse", null, {params: {userId}});
+    const response = await Axios.post(
+      url + "users/updateFirstLoginToFalse",
+      null,
+      { params: { userId } }
+    );
     return response.data;
   }
 }
