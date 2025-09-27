@@ -23,7 +23,7 @@ const Invitation = () => {
       console.log(result.data);
       setInviteId(result.data.inviteId);
       setName(result.data.name);
-      setDate(result.data.date);
+      setDate(new Date(result.data.date));
       console.log(result.data.date);
       setLocation(result.data.location);
       setOtherDetails(result.data.otherDetails);

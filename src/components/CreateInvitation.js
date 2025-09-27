@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import ChooseDecoration from "./ChooseDecoration";
 import LocationAutocomplete from "./LocationAutocomplete";
 import EditInvitationTour from "./EditInvitationTour";
+import FancyDatePicker from "./DatePicker";
 
 const images = {
   1: barmitvaImg,
@@ -68,7 +69,8 @@ const CreateInvitation = () => {
   useEffect(() => {
     setLoading(true);
     ManageDatabaseRequests.GetInviteInfo(user.inviteId).then((result) => {
-      setInviteInfo(result.data);
+      // setInviteInfo(result.data);
+      setInviteInfo({ ...result.data, date: new Date(result.data.date) });
       setLoading(false);
       setEventType(result.data.type);
       setDecoIndex(result.data.decoIndex);
@@ -84,6 +86,10 @@ const CreateInvitation = () => {
       setTourme(true);
     }
   }, [user]);
+
+  useEffect(() => {
+    console.log(inviteInfo);
+  }, [inviteInfo]);
 
   return (
     // notice the width of this is 50% on large screens
@@ -146,17 +152,7 @@ const CreateInvitation = () => {
               dir="rtl"
             />
           )}
-          <input
-            id="date"
-            // ref={dateRef}
-            value={inviteInfo.date}
-            onChange={(e) => {
-              setInviteInfo({ ...inviteInfo, date: e.target.value });
-            }}
-            placeholder="תאריך אירוע"
-            className="text-center p-2 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all m-2"
-            dir="rtl"
-          />
+
           <input
             id="location"
             // ref={locationRef}
@@ -179,6 +175,24 @@ const CreateInvitation = () => {
             placeholder="פרטים נוספים"
             className="text-center p-2 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all m-2 resize-none"
           />
+
+          {/* <input
+            id="date"
+            // ref={dateRef}
+            value={inviteInfo.date}
+            onChange={(e) => {
+              setInviteInfo({ ...inviteInfo, date: e.target.value });
+            }}
+            placeholder="תאריך אירוע"
+            className="text-center p-2 outline-none border-[1px] bg-gray-300 rounded-full focus:border-gray-400 transition-all m-2"
+            dir="rtl"
+          /> */}
+          <div id="date">
+            <FancyDatePicker
+              setInviteInfo={setInviteInfo}
+              initialDate={inviteInfo.date}
+            />
+          </div>
 
           {usingWaze == false ? (
             <div className="flex items-center gap-3">

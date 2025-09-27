@@ -14,11 +14,7 @@ const EditInvitationTour = ({ run, setRun, userId }) => {
       content: "מלא כאן את שם החוגג",
       placement: "top",
     },
-    {
-      target: "#date", // CSS selector of the element to highlight
-      content: "מלא כאן את תאריך האירוע",
-      placement: "top",
-    },
+
     {
       target: "#location", // CSS selector of the element to highlight
       content: "כתוב כאן את מיקום האירוע, מיקום זה יופיע בהזמנה שתשלח לאורחים",
@@ -28,6 +24,11 @@ const EditInvitationTour = ({ run, setRun, userId }) => {
       target: "#textarea", // CSS selector of the element to highlight
       content:
         "הוסף בתיבה זו פרטים נוספים שתרצה להוסיף, כל פעם שתכתוב '.' (נקודה) הטקסט בהזמנה ירד שורה",
+      placement: "top",
+    },
+    {
+      target: "#date", // CSS selector of the element to highlight
+      content: "מלא כאן את תאריך האירוע",
       placement: "top",
     },
     // {
