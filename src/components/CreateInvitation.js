@@ -70,7 +70,8 @@ const CreateInvitation = () => {
     setLoading(true);
     ManageDatabaseRequests.GetInviteInfo(user.inviteId).then((result) => {
       // setInviteInfo(result.data);
-      setInviteInfo({ ...result.data, date: new Date(result.data.date) });
+      const tempDate = result.data.date ? new Date(result.data.date) : null;
+      setInviteInfo({ ...result.data, date: tempDate });
       setLoading(false);
       setEventType(result.data.type);
       setDecoIndex(result.data.decoIndex);
@@ -309,27 +310,31 @@ const CreateInvitation = () => {
 
           <button
             id="create-btn"
-            className="bg-[#f3603c] w-[60%] p-2 rounded-full text-white text-xl lg:hover:shadow-lg lg:hover:shadow-[#c4acac] lg:hover:scale-105 transition-all"
+            className="mt-4 bg-[#f3603c] w-[60%] p-2 rounded-full text-white text-xl lg:hover:shadow-lg lg:hover:shadow-[#c4acac] lg:hover:scale-105 transition-all"
             onClick={() => {
-              ManageDatabaseRequests.CreateInvitation(
-                inviteInfo.name,
-                inviteInfo.date,
-                inviteInfo.location,
-                inviteInfo.otherDetails,
-                eventType,
-                user._id,
-                inviteInfo.latitude,
-                inviteInfo.longitude,
-                inviteInfo.placeForWaze,
-                decoIndex
-              )
-                .then((result) => {
-                  console.log(result);
-                  alert("פרטי ההזמנה עודכנו, תודה");
-                })
-                .catch(() => {
-                  throw Error;
-                });
+              if (inviteInfo.date) {
+                ManageDatabaseRequests.CreateInvitation(
+                  inviteInfo.name,
+                  inviteInfo.date,
+                  inviteInfo.location,
+                  inviteInfo.otherDetails,
+                  eventType,
+                  user._id,
+                  inviteInfo.latitude,
+                  inviteInfo.longitude,
+                  inviteInfo.placeForWaze,
+                  decoIndex
+                )
+                  .then((result) => {
+                    console.log(result);
+                    alert("פרטי ההזמנה עודכנו, תודה");
+                  })
+                  .catch(() => {
+                    throw Error;
+                  });
+              } else {
+                alert("תאריך האירוע חייב להבחר");
+              }
             }}
           >
             צור

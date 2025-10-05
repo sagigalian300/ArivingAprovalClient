@@ -23,8 +23,15 @@ const Invitation = () => {
       console.log(result.data);
       setInviteId(result.data.inviteId);
       setName(result.data.name);
-      setDate(new Date(result.data.date));
-      console.log(result.data.date);
+      const dateOBJ = new Date(result.data.date);
+      const tempDate = result.data.date
+        ? dateOBJ.getDate() +
+          "." +
+          (dateOBJ.getMonth() + 1) +
+          "." +
+          dateOBJ.getFullYear()
+        : "לא נבחר תאריך לאירוע עדיין";
+      setDate(tempDate);
       setLocation(result.data.location);
       setOtherDetails(result.data.otherDetails);
       setType(result.data.type);

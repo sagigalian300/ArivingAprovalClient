@@ -14,6 +14,10 @@ const FancyDatePicker = ({ setInviteInfo, initialDate }) => {
     setSelectedDate(date);
   };
 
+  useEffect(() => {
+    console.log(selectedDate);
+  }, [selectedDate]);
+
   return (
     <div className="p-4" dir="rtl">
       <label className="block mb-2 font-semibold text-gray-700">

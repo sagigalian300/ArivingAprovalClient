@@ -86,8 +86,7 @@ const Main = ({ name, date, location, otherDetails, type, decoIndex }) => {
           </h1>
         )}
         <h1 className="font-mono text-5xl mb-3" dir="rtl">
-          {date &&
-            date.getDate() + "." + date.getMonth() + "." + date.getFullYear()}
+          {date}
         </h1>
         <h1 className="font-medium text-2xl" dir="rtl">
           {location}
