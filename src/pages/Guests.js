@@ -24,6 +24,7 @@ const Guests = () => {
   const [numberOfGuests, setNumberOfGuests] = useState(0);
   const [loading, setLoading] = useState(false);
   const [filteredGuests, setFilteredGuests] = useState([]);
+  const [allowSending, setAllowSending] = useState(false);
   const searchRef = useRef();
 
   const deleteGuest = (guestId) => {
@@ -61,6 +62,11 @@ const Guests = () => {
         setLoading(false);
         alert("שגיאה, נא רענן את הדף");
       });
+
+    ManageDatabaseRequests.GetInviteInfo(user.inviteId).then((res) => {
+      setAllowSending(res.data.allowSendingGmails);
+      console.log("here--", res.data.allowSendingGmails);
+    });
   }, []);
 
   useEffect(() => {
@@ -94,7 +100,7 @@ const Guests = () => {
           );
         }}
       />
-      {guests.length > 0 && (
+      {guests.length > 0 && allowSending && (
         <button
           onClick={() => {
             const confirmed = window.confirm(
@@ -102,6 +108,7 @@ const Guests = () => {
             );
 
             if (confirmed) {
+              setAllowSending(false);
               Axios.post(url + "guests/sendRemindersToAllGuests", null, {
                 params: {
                   userId: user._id,
