@@ -110,8 +110,10 @@ const Nav = (props) => {
                     setIsNavOpen(false);
                     navigate("/contact");
                   } else if (index + 1 === 4) {
-                    setIsNavOpen(false);
-                    navigate("/info");
+                    navigate("/privacypolicy");
+                    // window.location.replace(
+                    //   "https://informationaprovals.netlify.app/"
+                    // ); היה העמוד של המידע
                   }
                 }}
               >
