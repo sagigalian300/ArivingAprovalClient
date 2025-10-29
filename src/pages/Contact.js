@@ -6,7 +6,7 @@ const Contact = () => {
         <h1 className='text-xl font-bold'>צרו איתנו קשר</h1>
         <h1>arivingapprovals@gmail.com : במייל</h1>
 
-        <a href="mailto:arivingapprovals@gmail.com">שלחו לנו מייל כאן</a>
+        <a className="border-[1px] p-2 m-2" href="mailto:arivingapprovals@gmail.com">שלחו לנו מייל כאן</a>
     </div>
   )
 }

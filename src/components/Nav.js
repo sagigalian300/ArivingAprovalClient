@@ -8,7 +8,7 @@ import { IoClose } from "react-icons/io5";
 import Lottie from "lottie-react";
 import animationData from "../assets/createAccount.json";
 
-const links = ["התנתק", "צור חשבון", "צור קשר"/*, "מידע"*/];
+const links = ["התנתק", "צור חשבון", "צור קשר", "מדיניות"];
 
 const Nav = (props) => {
   const location = useLocation();
@@ -44,9 +44,10 @@ const Nav = (props) => {
                   } else if (index + 1 === 3) {
                     navigate("/contact");
                   } else if (index + 1 === 4) {
-                    window.location.replace(
-                      "https://informationaprovals.netlify.app/"
-                    );
+                    navigate("/privacypolicy");
+                    // window.location.replace(
+                    //   "https://informationaprovals.netlify.app/"
+                    // ); היה העמוד של המידע
                   }
                 }}
               >

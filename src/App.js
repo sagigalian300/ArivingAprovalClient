@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import "./App.css";
 import Contact from "./pages/Contact";
 import AccountManagement from "./pages/AccountManagement";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 // import Info from "./pages/Info";
 
 export const UserContext = createContext();
@@ -46,6 +47,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             {/* <Route path="/info" element={<Info />} /> */}
             <Route path="accountmanagement" element={<AccountManagement />} />
+            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           </Routes>
           <Footer />
         </BrowserRouter>

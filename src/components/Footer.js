@@ -8,14 +8,12 @@ const Footer = () => {
       <div className="flex flex-col text-end m-5">
         <h1 className="text-white text-lg font-bold">קראו עלינו</h1>
         <h1 onClick={() => {navigate('/info')}} className="text-white text-lg">בעמוד זה</h1>
-        <h1> ""</h1>
       </div>
       <div className="flex flex-col text-end m-5">
         <h1 className="text-white text-lg font-bold">
           לפרטים והזמנות מצאו אותנו
         </h1>
-        <h1 className="text-white text-lg">במספר - 0585916747</h1>
-        <h1 className="text-white text-lg">sagigalianold@gmail.com - במייל </h1>
+        <h1 className="text-white text-lg">arivingapprovals@gmail.com - במייל </h1>
       </div>
     </div>
   );
