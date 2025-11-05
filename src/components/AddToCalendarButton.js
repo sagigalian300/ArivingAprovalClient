@@ -1,7 +1,12 @@
 import React from "react";
 
 const AddToCalendarButton = ({ name, date, location }) => {
-  const formatDate = (d) => d.toISOString().slice(0, 10).replace(/-/g, "");
+  const formatDate = (d) => {
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}${month}${day}`;
+  };
 
   const parseFlexibleDate = (dateString) => {
     if (!dateString) return null;
