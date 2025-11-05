@@ -30,10 +30,13 @@ const ChooseDecoration = ({ setDecoIndexInFather, decoIndexInitial }) => {
   }, [decoIndex, setDecoIndexInFather]);
 
   const switchDecoration = (num) => {
+   
     setDecoIndex((prev) => {
-      const next = prev + num;
+      const next = parseInt(prev) + parseInt(num);
       if (next < 0) return decorations.length - 1;
       if (next >= decorations.length) return 0;
+
+      console.log(next);
       return next;
     });
   };
