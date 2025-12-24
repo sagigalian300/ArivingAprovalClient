@@ -18,7 +18,7 @@ export const UserContext = createContext();
 
 function App() {
   const [user, setUser] = useState({});
-
+  
   const setUserOnLogin = (user) => {
     console.log(user);
     setUser((curr) => ({ ...user, logged: true }));
@@ -43,6 +43,7 @@ function App() {
               path="/login"
               element={<Login setUserOnLogin={setUserOnLogin} />}
             />
+
             <Route path="/guests" element={<Guests />} />
             <Route path="/contact" element={<Contact />} />
             {/* <Route path="/info" element={<Info />} /> */}
